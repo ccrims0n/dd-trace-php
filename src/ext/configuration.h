@@ -114,7 +114,8 @@ void ddtrace_config_shutdown(void);
     BOOL(get_dd_trace_debug_curl_output, "DD_TRACE_DEBUG_CURL_OUTPUT", false)                                        \
     INT(get_dd_trace_beta_high_memory_pressure_percent, "DD_TRACE_BETA_HIGH_MEMORY_PRESSURE_PERCENT", 80,            \
         "reaching this percent threshold of a span buffer will trigger background thread "                           \
-        "to attempt to flush existing data to trace agent")
+        "to attempt to flush existing data to trace agent")                                                          \
+    BOOL(get_dd_trace_warn_legacy_dd_trace, "DD_TRACE_WARN_LEGACY_DD_TRACE", true)
 
 // render all configuration getters and define memoization struct
 #include "configuration_render.h"
