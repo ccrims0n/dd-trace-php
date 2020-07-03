@@ -68,7 +68,7 @@ class LumenSandboxedIntegration extends SandboxedIntegration
             'Laravel\Lumen\Application',
             'handleFoundRoute',
             [
-                // todo: convert to non-tracing API
+                // convert to non-tracing API
                 'posthook' => function (SpanData $span, $args) use ($rootSpan) {
                     $span->service = \ddtrace_config_app_name('lumen');
                     if (count($args) < 1 || !\is_array($args[0])) {
