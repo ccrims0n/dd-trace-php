@@ -68,9 +68,11 @@ class LumenSandboxedIntegration extends SandboxedIntegration
             'Laravel\Lumen\Application',
             'handleFoundRoute',
             [
-                'prehook' => function (SpanData $span, $args) use ($rootSpan) {
+                // todo: convert to non-tracing API
+                'posthook' => function (SpanData $span, $args) use ($rootSpan) {
+                    $span->service = \ddtrace_config_app_name('lumen');
                     if (count($args) < 1 || !\is_array($args[0])) {
-                        return false;
+                        return;
                     }
                     $routeInfo = $args[0];
                     $resourceName = null;
@@ -89,8 +91,6 @@ class LumenSandboxedIntegration extends SandboxedIntegration
                             $rootSpan->getTag(Tag::HTTP_METHOD) . ' ' . $resourceName
                         );
                     }
-
-                    return false;
                 },
             ]
         );
